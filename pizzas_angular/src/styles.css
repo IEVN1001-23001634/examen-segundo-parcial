@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+@layer components {
+  .panel {
+    @apply bg-neutral-primary-soft border border-default rounded-xs p-6 shadow-xs;
+  }
+  .campo {
+    @apply block w-full px-3 py-2.5 text-sm text-heading bg-neutral-secondary-medium border border-default-medium rounded-xs shadow-xs placeholder:text-body focus:outline-none focus:ring-1 focus:ring-success focus:border-success;
+  }
+  .etiqueta {
+    @apply block mb-2 text-sm font-medium text-heading;
+  }
+  .btn-primario {
+    @apply inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium leading-5 text-white bg-success border border-transparent rounded-xs shadow-xs cursor-pointer hover:bg-success-strong focus:outline-none focus:ring-4 focus:ring-success-medium;
+  }
+  .btn-sec {
+    @apply inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium leading-5 text-body bg-neutral-secondary-medium border border-default-medium rounded-xs shadow-xs cursor-pointer hover:bg-neutral-tertiary-medium hover:text-heading focus:outline-none focus:ring-4 focus:ring-neutral-tertiary;
+  }
+  .btn-peligro {
+    @apply inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium leading-5 text-white bg-danger border border-transparent rounded-xs shadow-xs cursor-pointer hover:bg-danger-strong focus:outline-none focus:ring-4 focus:ring-danger-medium;
+  }
+  .btn-chico {
+    @apply px-3 py-1.5 text-xs;
+  }
+  .opcion-caja {
+    @apply flex justify-between items-center px-4 py-2.5 text-sm text-body border border-default-medium rounded-xs cursor-pointer hover:bg-neutral-secondary-soft peer-checked:border-success peer-checked:bg-success-soft peer-checked:text-fg-success-strong peer-focus-visible:ring-2 peer-focus-visible:ring-success-medium;
+  }
+  .opcion-chip {
+    @apply inline-block px-4 py-2 text-sm text-body border border-default-medium rounded-xs cursor-pointer hover:bg-neutral-secondary-soft peer-checked:border-success peer-checked:bg-success peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-success-medium;
+  }
+  .aviso {
+    @apply p-4 mb-5 text-sm border rounded-xs;
+  }
+  .aviso-ok {
+    @apply bg-success-soft text-fg-success-strong border-success-subtle;
+  }
+  .aviso-error {
+    @apply bg-danger-soft text-fg-danger-strong border-danger-subtle;
+  }
+  .error-campo {
+    @apply mt-1.5 text-sm text-fg-danger-strong;
+  }
+  .caja-tabla {
+    @apply overflow-x-auto border border-default rounded-xs;
+  }
+  .tabla {
+    @apply w-full text-sm text-left text-body;
+  }
+  .tabla th {
+    @apply px-5 py-3 font-medium text-heading bg-neutral-secondary-soft border-b-2 border-success;
+  }
+  .tabla td {
+    @apply px-5 py-3 border-b border-default;
+  }
+  .tabla tbody tr:nth-child(even) {
+    @apply bg-neutral-secondary-soft;
+  }
+  .barra-total {
+    @apply flex flex-wrap justify-between items-center gap-3 px-5 py-4 bg-neutral-secondary-soft border border-default rounded-xs;
+  }
+}

@@ -1,0 +1,92 @@
+<h2 class="mb-4 font-semibold text-heading text-xl">{{titulo()}}</h2>
+
+<section class="mb-6 panel">
+  <div class="items-end gap-4 grid md:grid-cols-2">
+    <div>
+      <label for="dia" class="etiqueta">Día de la semana</label>
+      <div class="flex gap-2">
+        <input id="dia" [(ngModel)]="dia" type="text" list="lista-dias" class="campo" placeholder="lunes, martes...">
+        <button type="button" (click)="consultarDia()" class="btn-primario shrink-0">Buscar</button>
+      </div>
+      <datalist id="lista-dias">
+        <option *ngFor="let d of dias" [value]="d"></option>
+      </datalist>
+    </div>
+    <div>
+      <label for="mes" class="etiqueta">Mes</label>
+      <div class="flex gap-2">
+        <input id="mes" [(ngModel)]="mes" type="text" list="lista-meses" class="campo" placeholder="enero, febrero...">
+        <button type="button" (click)="consultarMes()" class="btn-primario shrink-0">Buscar</button>
+      </div>
+      <datalist id="lista-meses">
+        <option *ngFor="let m of meses" [value]="m"></option>
+      </datalist>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="error()" class="aviso aviso-error" role="alert">{{error()}}</div>
+
+<section class="panel">
+  <div class="mb-5 caja-tabla">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th scope="col">Cliente</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Total</th>
+          <th scope="col"><span class="sr-only">Detalle</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let venta of dataSource()">
+          <td class="font-medium text-heading">{{venta.nombre_cliente}}</td>
+          <td>{{venta.fecha_compra}}</td>
+          <td>{{venta.total | currency}}</td>
+          <td class="text-right">
+            <button type="button" (click)="verDetalle(venta.id_pedido)" class="btn-sec btn-chico">
+              {{ventaAbierta() === venta.id_pedido ? 'Ocultar' : 'Ver detalle'}}
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="dataSource().length === 0">
+          <td colspan="4" class="py-8 text-center">No hay ventas en este periodo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="barra-total">
+    <div class="flex gap-3">
+      <button type="button" [routerLink]="['/pizzeria/pedido']" class="btn-sec">Nuevo pedido</button>
+      <button type="button" [routerLink]="['/pizzeria/detalle']" class="btn-sec">Pedido actual</button>
+    </div>
+    <p class="font-medium text-heading">Ventas totales:
+      <span class="ms-1 font-bold text-fg-success-strong text-2xl">{{total() | currency}}</span>
+    </p>
+  </div>
+
+  <div *ngIf="ventaAbierta() !== null" class="mt-6 pl-4 border-l-4 border-success">
+    <h3 class="mb-3 font-semibold text-heading text-lg">Detalle de la venta #{{ventaAbierta()}}</h3>
+    <div class="caja-tabla">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th scope="col">Tamaño</th>
+            <th scope="col">Ingredientes</th>
+            <th scope="col">Cant.</th>
+            <th scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of detalle()">
+            <td class="font-medium text-heading">{{d.tamano}}</td>
+            <td>{{d.ingredientes || 'Sin ingredientes'}}</td>
+            <td>{{d.num_pizzas}}</td>
+            <td>{{d.subtotal | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

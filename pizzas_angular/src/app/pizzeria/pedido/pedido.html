@@ -1,0 +1,77 @@
+<div *ngIf="mensaje()" class="aviso" [ngClass]="exito() ? 'aviso-ok' : 'aviso-error'" role="alert">
+  {{mensaje()}}
+</div>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="gap-6 grid lg:grid-cols-5">
+
+  <section class="lg:col-span-2 panel">
+    <h2 class="mb-5 font-semibold text-heading text-xl">formulario</h2>
+    <div class="space-y-4">
+      <div>
+        <label for="nombre" class="etiqueta">Nombre completo</label>
+        <input type="text" id="nombre" formControlName="nombre" class="campo">
+        <p *ngIf="invalido('nombre')" class="error-campo">Escribe el nombre completo (mínimo 3 caracteres)</p>
+      </div>
+      <div>
+        <label for="direccion" class="etiqueta">Dirección</label>
+        <input type="text" id="direccion" formControlName="direccion" class="campo">
+        <p *ngIf="invalido('direccion')" class="error-campo">La dirección es obligatoria</p>
+      </div>
+      <div>
+        <label for="telefono" class="etiqueta">Teléfono</label>
+        <input type="text" id="telefono" formControlName="telefono" class="campo">
+        <p *ngIf="invalido('telefono')" class="error-campo">Teléfono inválido (de 7 a 15 dígitos)</p>
+      </div>
+      <div>
+        <label for="fecha" class="etiqueta">Fecha de compra</label>
+        <input type="date" id="fecha" formControlName="fecha" class="campo">
+        <p *ngIf="invalido('fecha')" class="error-campo">La fecha es obligatoria</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lg:col-span-3 panel">
+    <h2 class="mb-5 font-semibold text-heading text-xl">ingredientes</h2>
+
+    <p class="etiqueta">Tamaño</p>
+    <div class="gap-3 grid sm:grid-cols-3 mb-1">
+      <label *ngFor="let t of tamanos" class="block">
+        <input type="radio" formControlName="tamano" [value]="t.valor" class="sr-only peer">
+        <span class="opcion-caja">
+          <span class="font-semibold">{{t.valor}}</span>
+          <span>${{t.precio}}</span>
+        </span>
+      </label>
+    </div>
+    <p *ngIf="invalido('tamano')" class="error-campo">Elige un tamaño</p>
+
+    <p class="mt-6 etiqueta">Ingredientes <span class="font-normal">(+$10 cada uno)</span></p>
+    <div class="flex flex-wrap gap-2">
+      <label>
+        <input type="checkbox" formControlName="jamon" class="sr-only peer">
+        <span class="opcion-chip">Jamón</span>
+      </label>
+      <label>
+        <input type="checkbox" formControlName="pina" class="sr-only peer">
+        <span class="opcion-chip">Piña</span>
+      </label>
+      <label>
+        <input type="checkbox" formControlName="champinones" class="sr-only peer">
+        <span class="opcion-chip">Champiñones</span>
+      </label>
+    </div>
+
+    <div class="mt-6 w-40">
+      <label for="numPizzas" class="etiqueta">Cantidad</label>
+      <input type="number" id="numPizzas" formControlName="numPizzas" class="campo">
+      <p *ngIf="invalido('numPizzas')" class="error-campo">Entre 1 y 50</p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 mt-8">
+      <button type="submit" class="btn-primario">Agregar al pedido</button>
+      <button type="button" [routerLink]="['/pizzeria/detalle']" class="btn-sec">Ver detalle</button>
+      <button type="button" [routerLink]="['/pizzeria/ventas']" class="btn-sec">Ventas</button>
+    </div>
+  </section>
+
+</form>

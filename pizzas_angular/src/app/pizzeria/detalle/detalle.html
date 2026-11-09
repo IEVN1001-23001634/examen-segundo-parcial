@@ -1,0 +1,60 @@
+<div *ngIf="mensaje()" class="aviso" [ngClass]="exito() ? 'aviso-ok' : 'aviso-error'" role="alert">
+  {{mensaje()}}
+</div>
+
+<div class="gap-6 grid lg:grid-cols-3">
+
+  <section class="lg:col-span-2 panel">
+    <h2 class="mb-4 font-semibold text-heading text-xl">Pizzas del pedido</h2>
+
+    <div class="caja-tabla">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th scope="col">Tamaño</th>
+            <th scope="col">Ingredientes</th>
+            <th scope="col">Cant.</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col"><span class="sr-only">Quitar</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pizza of dataSource()">
+            <td class="font-medium text-heading">{{pizza.tamano}}</td>
+            <td>{{pizza.ingredientes || 'Sin ingredientes'}}</td>
+            <td>{{pizza.num_pizzas}}</td>
+            <td>{{pizza.subtotal | currency}}</td>
+            <td class="text-right">
+              <button type="button" (click)="quitar(pizza.id_temp)" class="btn-peligro btn-chico">Quitar</button>
+            </td>
+          </tr>
+          <tr *ngIf="dataSource().length === 0">
+            <td colspan="5" class="py-8 text-center">Aún no hay pizzas en el pedido</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <aside class="self-start panel">
+    <h2 class="mb-4 font-semibold text-heading text-xl">Resumen</h2>
+
+    <dl class="mb-6 text-sm">
+      <div class="flex justify-between py-2 border-b border-default">
+        <dt>Pizzas distintas</dt>
+        <dd class="font-medium text-heading">{{dataSource().length}}</dd>
+      </div>
+      <div class="flex justify-between items-center py-3">
+        <dt class="font-medium text-heading">Total a pagar</dt>
+        <dd class="font-bold text-fg-success-strong text-2xl">{{total() | currency}}</dd>
+      </div>
+    </dl>
+
+    <div class="flex flex-col gap-3">
+      <button type="button" (click)="terminar()" class="w-full btn-primario">Terminar pedido</button>
+      <button type="button" [routerLink]="['/pizzeria/pedido']" class="w-full btn-sec">Agregar otra pizza</button>
+      <button type="button" [routerLink]="['/pizzeria/ventas']" class="w-full btn-sec">Ver ventas</button>
+    </div>
+  </aside>
+
+</div>

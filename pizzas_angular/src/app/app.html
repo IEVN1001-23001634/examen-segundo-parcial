@@ -1,0 +1,14 @@
+<header class="bg-neutral-primary-soft border-b border-default">
+  <div class="flex flex-wrap justify-between items-center gap-3 mx-auto px-4 py-3 max-w-5xl">
+    <a routerLink="/pizzeria/pedido" class="font-semibold text-heading text-xl">Pizzería</a>
+    <nav class="flex gap-1 font-medium text-sm">
+      <a routerLink="/pizzeria/pedido" routerLinkActive="bg-success-soft! text-fg-success-strong!" class="hover:bg-neutral-secondary-soft px-3 py-2 rounded-xs text-body">Pedido</a>
+      <a routerLink="/pizzeria/detalle" routerLinkActive="bg-success-soft! text-fg-success-strong!" class="hover:bg-neutral-secondary-soft px-3 py-2 rounded-xs text-body">Detalle</a>
+      <a routerLink="/pizzeria/ventas" routerLinkActive="bg-success-soft! text-fg-success-strong!" class="hover:bg-neutral-secondary-soft px-3 py-2 rounded-xs text-body">Ventas</a>
+    </nav>
+  </div>
+</header>
+
+<main class="mx-auto px-4 pt-8 pb-12 max-w-5xl">
+  <router-outlet />
+</main>
